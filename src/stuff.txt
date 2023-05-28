@@ -1,0 +1,2 @@
+<Route path="/classes />" element={<Classes />}></Route>
+                
