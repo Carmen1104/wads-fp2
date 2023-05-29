@@ -48,7 +48,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
-        min: "auto",
+        min: "0",
         max: "auto",
         stacked: true,
         reverse: false,
@@ -60,19 +60,19 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
       axisBottom={{
         orient: "bottom",
         tickSize: 0,
-        tickPadding: 5,
+        tickPadding: 10,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
-        legendOffset: 36,
+        legend: isDashboard ? undefined : "Exams", 
+        legendOffset: 40,
         legendPosition: "middle",
       }}
       axisLeft={{
         orient: "left",
-        tickValues: 5, // added
+        tickValues: 10,
         tickSize: 3,
-        tickPadding: 5,
+        tickPadding: 10,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
+        legend: isDashboard ? undefined : "Grades",
         legendOffset: -40,
         legendPosition: "middle",
       }}

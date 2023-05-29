@@ -4,13 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  useTheme,
+import {Box,List,ListItem,ListItemText,Typography,useTheme,
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../Theme";
@@ -48,7 +42,7 @@ const Schedule = () => {
 
   return (
     <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+      <Header title="Calendar" subtitle="Plan Out Your Own Shedule" />
 
       <Box display="flex" justifyContent="space-between">
         
@@ -96,11 +90,6 @@ const Schedule = () => {
               interactionPlugin,
               listPlugin,
             ]}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-            }}
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
@@ -112,13 +101,28 @@ const Schedule = () => {
             initialEvents={[
               {
                 id: "12315",
-                title: "All-day event",
-                date: "2022-09-14",
+                title: "English Quiz",
+                date: "2023-05-15",
               },
               {
                 id: "5123",
-                title: "Timed event",
-                date: "2022-09-28",
+                title: "Maths SA",
+                date: "2023-05-29",
+              },
+              {
+                id: "3",
+                title: "Mandarin SA",
+                date: "2023-05-29",
+              },
+              {
+                id: "13",
+                title: "Chemistry SA",
+                date: "2023-06-02",
+              },
+              {
+                id: "35",
+                title: "PKN SA",
+                date: "2023-06-02",
               },
             ]}
           />

@@ -8,6 +8,7 @@ import Schedule  from "./scenes/schedule";
 import Contact  from "./scenes/contacts";
 import Assignments  from "./scenes/assignments";
 import { Routes, Route } from "react-router-dom";
+import Line from "./scenes/line";
 
 function App() {
   const [theme, colorMode] = useMode();
