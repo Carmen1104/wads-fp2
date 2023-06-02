@@ -10,7 +10,7 @@ const ClassBox = ({subject, teacher, image, altText, to}) => {
     <Box width="100%" m="0 30px">
         <Box display="flex" justifyContent="space-between">
             <Box>
-                <img style={{maxWidth: 180, minWidth:100, width:140}} src={image} alt={altText} />
+                <img style={{maxWidth: 180, minWidth:100, width:140, height:100}} src={image} alt={altText} />
             </Box>
             <Box>
                 <Typography variant="h2" fontWeight="bold" sx={{ color: colors.grey[100]}}>

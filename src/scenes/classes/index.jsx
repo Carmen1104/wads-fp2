@@ -1,11 +1,16 @@
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../Theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import DashBox from "../../components/DashBox";
-import PeopleIcon from '@mui/icons-material/People';
 import Header from "../../components/Header";
 
 import Math from "../../img/math.png";
+import English from "../../img/english.jpeg";
+import BahasaIndonesia from "../../img/BIndo.png";
+import Bio from "../../img/biology.jpeg";
+import Chem from "../../img/chemistry.png";
+import Physics from "../../img/download.png";
+import Mandarin from "../../img/mandarin.jpeg";
+import Accounting from "../../img/accounting.jpeg";
+import PKN from "../../img/pkn.jpeg";
 import ClassBox from "../../components/ClassBox";
 
 const Classes = () => {
@@ -36,7 +41,7 @@ const Classes = () => {
            <ClassBox 
             subject="English"
             teacher="Mr.Connor Maxwell" 
-            image={Math}
+            image={English}
             altText="English"
             to="/line" />
         </Box>
@@ -45,7 +50,7 @@ const Classes = () => {
             <ClassBox 
             subject="Bahasa Indonesia"
             teacher="Ibu Yustine Agustina" 
-            image={Math}
+            image={BahasaIndonesia}
             altText="B.Indo"
             to="/line" />
         </Box>
@@ -56,7 +61,7 @@ const Classes = () => {
             <ClassBox 
             subject="Biology"
             teacher="Ms.Theresa Ashley" 
-            image={Math}
+            image={Bio}
             altText="Biology"
             to="/line" />
         </Box>
@@ -65,7 +70,7 @@ const Classes = () => {
             <ClassBox 
             subject="Chemistry"
             teacher="Ms.Julie Anggun" 
-            image={Math}
+            image={Chem}
             altText="Chemistry"
             to="/line" />
         </Box>
@@ -74,7 +79,7 @@ const Classes = () => {
             <ClassBox 
             subject="Physics"
             teacher="Ms.Erik Purnomo" 
-            image={Math}
+            image={Physics}
             altText="Physics"
             to="/line" />
         </Box>
@@ -85,17 +90,17 @@ const Classes = () => {
             <ClassBox 
             subject="Mandarin"
             teacher="Lao shi Cheng lei" 
-            image={Math}
+            image={Mandarin}
             altText="Mandarin"
             to="/line" />
         </Box>
         <Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
         sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px"}}>
             <ClassBox 
-            subject="Religion"
+            subject="Accounting"
             teacher="Mr.Yohannes Sebastian" 
-            image={Math}
-            altText="Religion"
+            image={Accounting}
+            altText="accounting"
             to="/line" />
         </Box>
         <Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
@@ -103,7 +108,7 @@ const Classes = () => {
             <ClassBox 
             subject="PKN"
             teacher="Ms. Eka Putri" 
-            image={Math}
+            image={PKN}
             altText="PKN"
             to="/line" />
         </Box>
