@@ -1,2 +1,26 @@
-<Route path="/classes />" element={<Classes />}></Route>
-                
+<Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
+          sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px"}}>
+            <DashBox title="Rp 3.600.000" subTitle="Next Payment" icon={<PeopleIcon sx={{ color: colors.greenAccent[400], fontSize: "48px"
+            }}/>}/>
+          </Box>
+
+          <Box>
+          <Button sx={{backgroundColor: colors.redAccent[700], color:colors.grey[100], fontSize: "14px", fontWeight: "bold", padding: "10px 20px"}}>
+          <DownloadOutlinedIcon sx={{ mr: "10px" }} />
+            Download Schedule
+          </Button>
+        </Box>
+
+        const CardPic = (component, height, img, alt, to) => {
+  return (
+    <CardMedia
+    component={component}
+    height={height}
+    image={img}
+    alt={alt}>
+      <Link to={to} />
+    </CardMedia>
+  );
+};
+
+

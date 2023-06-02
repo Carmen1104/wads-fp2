@@ -27,6 +27,7 @@ function App() {
                 <Route path="/schedule" element={<Schedule />}></Route>
                 <Route path="/contacts" element={<Contact />}></Route>
                 <Route path="/assignments" element={<Assignments />}></Route>
+                <Route path="/line" element={<Line />}></Route>
               </Routes>
             </main>
           </div>

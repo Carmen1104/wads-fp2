@@ -47,10 +47,10 @@ const Sidebar = () => {
         padding : "5px 35px 5px 20px !important"
       },
       "& .pro-inner-item:hover": {
-        color: "#868dfb !important"
+        color: "#d14c7d !important"
       },
       "& .pro-menu-item.active": {
-        color: "#6870fa !important",
+        color: "#dc799e !important",
       },
     }}>
       
@@ -102,7 +102,7 @@ const Sidebar = () => {
                 >
                   Jose Congko
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[300]}>
+                <Typography variant="h5" color={colors.redAccent[400]} mt="5px">
                   Grade 9A
                 </Typography>
               </Box>

@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../Theme";
 import { mockTransactions } from "../../data/mockData";
 import PeopleIcon from '@mui/icons-material/People';
@@ -44,15 +44,16 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="400px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <LineChart isDashboard={false}/>
           </Box>
         </Box>
+
         <Box
           gridColumn="span 4"
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
           overflow="auto"
-        >
+        > 
           <Box
             display="flex"
             justifyContent="space-between"
@@ -62,7 +63,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Assignmeents
             </Typography>
           </Box>
           {mockTransactions.map((transaction, i) => (
@@ -97,9 +98,7 @@ const Dashboard = () => {
             </Box>
           ))}
         </Box>
-
       </Box>
-
     </Box>
   )
 }
