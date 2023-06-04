@@ -8,15 +8,15 @@ const DashBox = ({title, subTitle, icon}) => {
 
   return (
     <Box width="100%" m="0 30px">
-        <Box display="flex" justifyContent="space-between">
+        <Box display="flex"flexWrap="nowrap" justifyContent="space-between">
             <Box>
                 {icon}
             </Box>
             <Box>
-                <Typography variant="h4" fontWeight="bold" sx={{ color: colors.grey[100]}}>
+                <Typography variant="h4" noWrap fontWeight="bold" sx={{ color: colors.grey[100]}}>
                     {title}
                 </Typography>
-                <Typography variant="h5" sx={{ color: colors.greenAccent[300]}}>
+                <Typography variant="h5" noWrap sx={{ color: colors.greenAccent[300]}}>
                     {subTitle}
                 </Typography>
             </Box>

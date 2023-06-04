@@ -1,26 +1,63 @@
-<Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
-          sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px"}}>
-            <DashBox title="Rp 3.600.000" subTitle="Next Payment" icon={<PeopleIcon sx={{ color: colors.greenAccent[400], fontSize: "48px"
-            }}/>}/>
-          </Box>
+const [assignments, setassignments] = useState(props.assignments);
+  const [filter, setFilter] = useState("All");
 
-          <Box>
-          <Button sx={{backgroundColor: colors.redAccent[700], color:colors.grey[100], fontSize: "14px", fontWeight: "bold", padding: "10px 20px"}}>
-          <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Schedule
-          </Button>
-        </Box>
+  function toggleassignmentCompleted(id) {
+    const updatedassignments = assignments.map((assignment) => {
+      // if this assignment has the same ID as the edited assignment
+      if (id === assignment.id) {
+        // use object spread to make a new obkect
+        // whose `completed` prop has been inverted
+        return { ...assignment, completed: !assignment.completed };
+      }
+      return assignment;
+    });
+    setassignments(updatedassignments);
+  }
 
-        const CardPic = (component, height, img, alt, to) => {
-  return (
-    <CardMedia
-    component={component}
-    height={height}
-    image={img}
-    alt={alt}>
-      <Link to={to} />
-    </CardMedia>
-  );
-};
+  const assignmentList = assignments
+    .filter(FILTER_MAP[filter])
+    .map((assignment) => (
+      <AssignFunc
+        id={assignment.id}
+        name={assignment.name}
+        completed={assignment.completed}
+        key={assignment.id}
+        toggleassignmentCompleted={toggleassignmentCompleted}
+      />
+    ));
+
+  const filterList = FILTER_NAMES.map((name) => (
+    <FilterButton
+      key={name}
+      name={name}
+      isPressed={name === filter}
+      setFilter={setFilter} 
+    />
+  ));
+
+  const assignmentsNoun = assignmentList.length !== 1 ? "assignments" : "assignment";
+  const headingText = `${assignmentList.length} ${assignmentsNoun} remaining`;
+
+  const listHeadingRef = useRef(null);
+  const prevassignmentLength = usePrevious(assignments.length);
+
+  useEffect(() => {
+    if (assignments.length - prevassignmentLength === -1) {
+      listHeadingRef.current.focus();
+    }
+  }, [assignments.length, prevassignmentLength]);
 
 
+<Box>
+        <div className="todoapp stack-large">
+          <div className="filters btn-group stack-exception">{filterList}</div>
+            <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>
+              {headingText}
+            </h2>
+            <ul
+              className="todo-list stack-large stack-exception"
+              aria-labelledby="list-heading">
+              {assignmentList}
+             </ul>
+          </div>
+      </Box>

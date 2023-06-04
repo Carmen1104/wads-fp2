@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../Theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+//import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import LogoLight from "../../img/LogoLight.png";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -54,6 +55,7 @@ const Sidebar = () => {
       },
     }}>
       
+    <div className="sidebar"></div>
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
@@ -89,7 +91,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={LogoLight}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -112,7 +114,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -146,13 +148,14 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/*<Item
               title="Assignments"
               to="/assignments"
               icon={<AssignmentOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
+            
 
           </Box>
         </Menu>

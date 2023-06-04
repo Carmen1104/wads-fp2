@@ -6,9 +6,10 @@ import Dashboard  from "./scenes/dashboard";
 import Classes  from "./scenes/classes";
 import Schedule  from "./scenes/schedule";
 import Contact  from "./scenes/contacts";
-import Assignments  from "./scenes/assignments";
+import Tasks  from "./scenes/assignments";
 import { Routes, Route } from "react-router-dom";
 import Line from "./scenes/line";
+import Login from "./scenes/login";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -17,20 +18,16 @@ function App() {
     <ColorModeContext.Provider  value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-          <div className="app">
-            <Sidebar />
-            <main className="content">
-              <Topbar />
-              <Routes>
-                <Route path="/" element={<Dashboard />}></Route> 
-                <Route path="/classes" element={<Classes />}></Route>
-                <Route path="/schedule" element={<Schedule />}></Route>
-                <Route path="/contacts" element={<Contact />}></Route>
-                <Route path="/assignments" element={<Assignments />}></Route>
-                <Route path="/line" element={<Line />}></Route>
-              </Routes>
-            </main>
-          </div>
+          <Routes>
+            <Route path="/" element={<Login />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route> 
+            <Route path="/classes" element={<Classes />}></Route>
+            <Route path="/schedule" element={<Schedule />}></Route>
+            <Route path="/contacts" element={<Contact />}></Route>
+            <Route path="/assignments" element={<Tasks />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/line" element={<Line />}></Route>
+          </Routes>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
