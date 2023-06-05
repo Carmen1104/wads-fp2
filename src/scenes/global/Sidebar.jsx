@@ -38,22 +38,6 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-
-    if (user) {
-      console.log(user.displayName);
-      navigate("/dashboard");
-    }
-    if (error) alert(error);
-  }, [error, loading, navigate, user]);
 
   return (
     <Box sx={{
