@@ -34,7 +34,7 @@ const Classes = () => {
 
               {/*Row 1*/}
               <Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
-                sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px"}}>
+                sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px", minWidth: "480px"}}>
                   <ClassBox 
                   subject="Mathematics"
                   teacher="Ms. Maria Cynthia" 
@@ -43,7 +43,7 @@ const Classes = () => {
                   to="/line" />
               </Box>
               <Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
-                sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px"}}>
+                sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px", minWidth: "480px"}}>
                 <ClassBox 
                   subject="English"
                   teacher="Mr. Connor Maxwell" 
@@ -52,7 +52,7 @@ const Classes = () => {
                   to="/line" />
               </Box>
               <Box gridColumn="span 4" backgroundColor={colors.primary[400]} display="flex" alignItems="center" justifyContent="center"
-                sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px"}}>
+                sx={{ border: 2, BorderColor:colors.primary[400], borderRadius: "16px", minWidth: "480px"}}>
                   <ClassBox 
                   subject="Bahasa Indonesia"
                   teacher="Ibu Yustine Agustina" 
