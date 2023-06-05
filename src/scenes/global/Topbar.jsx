@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, useTheme, Button } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../Theme";
 import InputBase from "@mui/material/InputBase";
@@ -6,8 +6,11 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from "@mui/icons-material/Search";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { logout } from "../../Firebase";
+
 
 const Topbar = () => {
   const theme = useTheme();
@@ -43,9 +46,13 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+        <Box>
+          <Button fullWidth variant='contained' sx={{color: "white", marginTop:"5px"}} type='submit' startIcon={<LogoutIcon />}
+          onClick={logout}>
+          Logout
+        </Button>
+        </Box>
+        
       </Box>
     </Box>
   );

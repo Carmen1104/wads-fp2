@@ -1,5 +1,5 @@
-import { Box, useTheme, Button, TextField, IconButton, Typography, FormControlLabel} from '@mui/material';
 import React, {useState, useEffect} from 'react'
+import { Box, useTheme, Button, IconButton, Typography} from '@mui/material';
 import { useAuthState } from "react-firebase-hooks/auth";
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,14 +10,13 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LoginIcon from '@mui/icons-material/Login';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginTopbar from "../global/LoginTopbar";
-import Checkbox from '@mui/material/Checkbox';
 import { tokens } from "../../Theme";
 import { auth, db } from "../../Firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { query, getDocs, collection, where, addDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { collection, addDoc, query, getDocs, where} from "firebase/firestore";
 
-function Login() {
+function SignUp() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -37,13 +36,25 @@ function Login() {
   //Set Value/login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate("");
+  const register = () => {
+    if (!name) alert("Please enter name");
+    registerWithEmailAndPass(name, email, password);
+    if (user) navigate.replace("/dashboard");
+  };
+
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (user) navigate.replace("/");
+  })
 
   /*Google Auth */
   const googleProvider = new GoogleAuthProvider();
-  const signInWithGoogle = async(e) => {
-    e.preventDefault()
+  const signInWithGoogle = async() => {
       try {
           const res = await signInWithPopup(auth, googleProvider);
           const user = res.user;
@@ -63,42 +74,54 @@ function Login() {
       }
   };
 
-  /*Login with Email & Password */
-  const loginWithEmailAndPass = async( email, password) => {
+  const registerWithEmailAndPass = async(e, name, email, password) =>{
+    if (e && e.preventDefault) {
+        e.preventDefault();
+    }
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        const user = res.user;
+        await addDoc(collection(db, 'users'), {
+            user: user.uid,
+            name,
+            authProvider: "local",
+            email,
+        });
     } catch (err) {
         console.error(err);
         alert(err.message);
     }
-};
+  };
   
-
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, );
-
   return (
     <div className="app">
       <main className="content">
         <LoginTopbar />
-          <Box textAlign="center" width="350px" alignItems="center" justifyContent="center" m="0 auto" mt="30px" height="400px" padding="20px"
+          <Box textAlign="center" width="350px" alignItems="center" justifyContent="center" m="0 auto" mt="30px" height="425px" padding="20px"
            sx={{backgroundColor: colors.primary[400], borderRadius: "16px",
            border:4 , borderColor:colors.greenAccent[200]}}>
               <Typography variant='h2' sx={{color: colors.greenAccent[200]}}>Welcome to COURS </Typography>
               <Box>
                 <p>
-                <TextField 
-                id='standard-basic' 
-                label="Email" 
-                variant='standard' 
-                fullWidth 
-                size='small'
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                />
+                <FormControl sx={{ width: '100%' }} variant="standard">
+                  <InputLabel >Full Name</InputLabel>
+                  <Input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </FormControl>
+                </p> 
+
+                <p>
+                <FormControl sx={{ width: '100%' }} variant="standard">
+                  <InputLabel >Email</InputLabel>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </FormControl>
                 </p> 
 
                 <p>
@@ -124,47 +147,32 @@ function Login() {
                 </FormControl>
                 </p> 
 
-                <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <FormControlLabel
-                  label="Remember Me"
-                  control={
-                    <Checkbox
-                      onChange={(event) => setChecked(event.target.value)}
-                      inputProps={{ 'aria-label': 'controlled' }} 
-                      sx={{color:colors.blueAccent[300], '&..Mui-checked': {color:colors.blueAccent[300]}}}
-                    />}
-                  />
-                  <Link to='/resetpass' style={{color:colors.blueAccent[300]}}>
-                  Forgot Password?
-                  </Link>
-                </Box>
-
                 <p>
                   <Button fullWidth variant='contained' sx={{color: "white", marginTop:"5px"}} type='submit' startIcon={<LoginIcon />}
-                  onClick={() => loginWithEmailAndPass(email, password)}>
-                    Login
+                  onClick={register}>
+                    Register
                   </Button>
                 </p>
 
                 <p>
                   <Button fullWidth variant='contained' sx={{color: "white", marginTop:"5px"}} type='submit' startIcon={<GoogleIcon />}
                   onClick={signInWithGoogle}>
-                    Login with Google
+                    Register with google
                   </Button>
                 </p>
 
-                {/* 
+
                 <p>
                   <Typography variant='h6' sx={{color: colors.greenAccent[200]}}>
-                    Don't have an account?
-                    <Link  to='/signup' style={{color:colors.blueAccent[300]}}>
-                     Sign up 
+                    Already have an account?
+                    <Link  to='/login' style={{color:colors.blueAccent[300]}}>
+                     Login 
                     </Link>
 
                      here.
                   </Typography>
                 </p>
-                */}
+
               </Box>
         </Box>
       </main>
@@ -172,4 +180,4 @@ function Login() {
   )
 };
 
-export default Login;
+export default SignUp;

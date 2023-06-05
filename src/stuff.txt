@@ -61,3 +61,15 @@ const [assignments, setassignments] = useState(props.assignments);
              </ul>
           </div>
       </Box>
+
+
+Project name
+Wads-fp
+Project ID 
+wads-fp
+Project number 
+184845430553
+Default GCP resource location 
+Not yet selected
+Web API Key
+AIzaSyAse_Oufz5I6cyHDyjCxWD9CUuQ9Shi8FE
