@@ -1,3 +1,11 @@
+# COURS Management System by Tanuki Group
+
+Members:
+Carmen Cleosa        		/    	2502009601
+Sandrian Gibran Wardana   	/    	2502016411
+Muhammad Alfin Rizqullah  	/    	2502036842
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
