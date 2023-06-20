@@ -8,7 +8,7 @@ import Tasks  from "./scenes/assignments";
 import { Routes, Route } from "react-router-dom";
 import Line from "./scenes/line";
 import Login from "./scenes/login";
-//import SignUp from "./scenes/signup";
+import SignUp from "./scenes/signup";
 import ResetPass from "./scenes/resetPassword";
 
 function App() {
@@ -20,16 +20,16 @@ function App() {
         <CssBaseline />
           <Routes>
             
-            {/* <Route path="/" element={<Login />}></Route>*/}
-            <Route path="/" element={<Dashboard />}></Route> 
+            <Route path="/" element={<Login />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route> 
             <Route path="/classes" element={<Classes />}></Route>
             <Route path="/schedule" element={<Schedule />}></Route>
             <Route path="/contacts" element={<Contact />}></Route>
             <Route path="/assignments" element={<Tasks />}></Route>
             <Route path="/line" element={<Line />}></Route>
-            {/*<Route path="/login" element={<Login />}></Route>           
+            <Route path="/login" element={<Login />}></Route>           
             <Route path="/signup" element={<SignUp />}></Route>
-            <Route path="/resetpass" element={<ResetPass />}></Route>*/}
+            <Route path="/resetpass" element={<ResetPass />}></Route>
           </Routes>
       </ThemeProvider>
     </ColorModeContext.Provider>

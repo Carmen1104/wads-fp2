@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, IconButton, useTheme, Button } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../Theme";
@@ -8,14 +9,16 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from "@mui/icons-material/Search";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { logout } from "../../Firebase";
 
-
-const Topbar = () => {
+function Topbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+  const handleLogout = () => {
+    logout(); // Call the logout function here
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -46,13 +49,9 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <Box>
-          <Button fullWidth variant='contained' sx={{color: "white", marginTop:"5px"}} type='submit' startIcon={<LogoutIcon />}
-          onClick={logout}>
-          Logout
-        </Button>
-        </Box>
-        
+        <IconButton onClick={logout}>
+          <LogoutIcon/>
+        </IconButton>
       </Box>
     </Box>
   );

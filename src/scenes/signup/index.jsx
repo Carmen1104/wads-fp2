@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from "react";
 import { Box, useTheme, Button, IconButton, Typography} from '@mui/material';
 import { useAuthState } from "react-firebase-hooks/auth";
 import FormControl from '@mui/material/FormControl';
@@ -11,87 +11,35 @@ import LoginIcon from '@mui/icons-material/Login';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginTopbar from "../global/LoginTopbar";
 import { tokens } from "../../Theme";
-import { auth, db } from "../../Firebase";
+import { auth, registerWithEmailAndPassword, signInWithGoogle, } from "../../Firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { collection, addDoc, query, getDocs, where} from "firebase/firestore";
 
 function SignUp() {
+  //darkmode lightmode
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  //hide password
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   }
   
-  //Input Error
-    const [checked, setChecked] = useState(false);
-
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-    };
-
-  //Set Value/login
+  //login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState("");
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate("");
+  const [user, loading, error] = useAuthState(auth);
+  const history = useNavigate();
   const register = () => {
     if (!name) alert("Please enter name");
-    registerWithEmailAndPass(name, email, password);
-    if (user) navigate.replace("/dashboard");
+    registerWithEmailAndPassword(name, email, password);
   };
-
   useEffect(() => {
-    if (loading) {
-      return;
-    }
-    if (user) navigate.replace("/");
-  })
-
-  /*Google Auth */
-  const googleProvider = new GoogleAuthProvider();
-  const signInWithGoogle = async() => {
-      try {
-          const res = await signInWithPopup(auth, googleProvider);
-          const user = res.user;
-          const q = query(collection(db, 'users'), where("uid", "==", user.uid));
-          const docs = await getDocs(q);
-          if (docs.docs.length === 0) {
-              await addDoc(collection(db, 'users'), {
-                  uid: user.uid,
-                  name: user.displayName,
-                  authProvider: "google",
-                  email: user.email,
-              });
-          }
-      } catch (err) {
-          console.error(err);
-          alert(err.message);
-      }
-  };
-
-  const registerWithEmailAndPass = async(e, name, email, password) =>{
-    if (e && e.preventDefault) {
-        e.preventDefault();
-    }
-    try {
-        const res = await createUserWithEmailAndPassword(auth, email, password);
-        const user = res.user;
-        await addDoc(collection(db, 'users'), {
-            user: user.uid,
-            name,
-            authProvider: "local",
-            email,
-        });
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
-  };
+    if (loading) return;
+    if (user) history("/dashboard");
+  }, [user, loading, error, history]);
   
   return (
     <div className="app">

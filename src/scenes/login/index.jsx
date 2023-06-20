@@ -1,5 +1,5 @@
+import React, {useState, useEffect} from "react";
 import { Box, useTheme, Button, TextField, IconButton, Typography, FormControlLabel} from '@mui/material';
-import React, {useState, useEffect} from 'react'
 import { useAuthState } from "react-firebase-hooks/auth";
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,73 +12,42 @@ import GoogleIcon from '@mui/icons-material/Google';
 import LoginTopbar from "../global/LoginTopbar";
 import Checkbox from '@mui/material/Checkbox';
 import { tokens } from "../../Theme";
-import { auth, db } from "../../Firebase";
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../../Firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { query, getDocs, collection, where, addDoc } from "firebase/firestore";
 
 function Login() {
+  //darkmode lightmode
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  //see/hide password
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   }
   
-  //Input Error
-    const [checked, setChecked] = useState(false);
+  //remember me checkbox
+  const [checked, setChecked] = useState(false);
 
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-    };
-
-  //Set Value/login
+  //login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate("");
 
-  /*Google Auth */
-  const googleProvider = new GoogleAuthProvider();
-  const signInWithGoogle = async(e) => {
-    e.preventDefault()
-      try {
-          const res = await signInWithPopup(auth, googleProvider);
-          const user = res.user;
-          const q = query(collection(db, 'users'), where("uid", "==", user.uid));
-          const docs = await getDocs(q);
-          if (docs.docs.length === 0) {
-              await addDoc(collection(db, 'users'), {
-                  uid: user.uid,
-                  name: user.displayName,
-                  authProvider: "google",
-                  email: user.email,
-              });
-          }
-      } catch (err) {
-          console.error(err);
-          alert(err.message);
-      }
-  };
-
-  /*Login with Email & Password */
-  const loginWithEmailAndPass = async( email, password) => {
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
-};
-  
-
   useEffect(() => {
-    if (user) {
-      navigate('/');
+    if (loading) {
+      // maybe trigger a loading screen
+      return;
     }
-  }, );
+
+    if (user) {
+      console.log(user.displayName);
+      navigate("/dashboard");
+    }
+    if (error) alert(error);
+  }, [error, loading, navigate, user]);
 
   return (
     <div className="app">
@@ -96,8 +65,8 @@ function Login() {
                 variant='standard' 
                 fullWidth 
                 size='small'
-                onChange={(e) => setEmail(e.target.value)}
                 value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 />
                 </p> 
 
@@ -141,7 +110,7 @@ function Login() {
 
                 <p>
                   <Button fullWidth variant='contained' sx={{color: "white", marginTop:"5px"}} type='submit' startIcon={<LoginIcon />}
-                  onClick={() => loginWithEmailAndPass(email, password)}>
+                  onClick={() => logInWithEmailAndPassword(email, password)}>
                     Login
                   </Button>
                 </p>
@@ -152,19 +121,17 @@ function Login() {
                     Login with Google
                   </Button>
                 </p>
-
-                {/* 
+ 
                 <p>
                   <Typography variant='h6' sx={{color: colors.greenAccent[200]}}>
-                    Don't have an account?
+                    Don't have an account? 
                     <Link  to='/signup' style={{color:colors.blueAccent[300]}}>
-                     Sign up 
+                      Sign up 
                     </Link>
 
                      here.
                   </Typography>
                 </p>
-                */}
               </Box>
         </Box>
       </main>
