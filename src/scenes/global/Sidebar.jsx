@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -11,6 +11,9 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoLight from "../../img/LogoLight.png";
+import { auth } from "../../Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -36,6 +39,23 @@ function Sidebar() {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const [user, loading] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const fetchUserName = () => {
+    try {
+      setName(auth.currentUser.displayName);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    fetchUserName();
+  }, [user, loading]);
 
   return (
     <Box sx={{
@@ -103,7 +123,7 @@ function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Jose Congko
+                  {name}
                 </Typography>
                 <Typography variant="h5" color={colors.redAccent[400]} mt="5px">
                   Grade 9A
